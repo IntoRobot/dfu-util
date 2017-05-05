@@ -1,6 +1,6 @@
 /*
  * DfuSe specific functions
- * 
+ *
  * This implements the ST Microsystems DFU extensions (DfuSe)
  * as per the DfuSe 1.1a specification (ST documents AN3156, AN2606)
  * The DfuSe file format is described in ST document UM0391.
@@ -453,7 +453,7 @@ int dfuse_dnload_element(struct dfu_if *dif, unsigned int dwElementAddress,
 		} else {
 			dfu_progress_bar("Download", p, dwElementSize);
 		}
-		
+
 		dfuse_special_command(dif, address, SET_ADDRESS);
 
 		/* transaction = 2 for no address offset */
@@ -507,7 +507,6 @@ int dfuse_do_bin_dnload(struct dfu_if *dif, int xfer_size,
 
 	printf("File downloaded successfully\n");
 	ret = dwElementSize;
-
  out_free:
 	return ret;
 }
@@ -666,7 +665,9 @@ int dfuse_do_dnload(struct dfu_if *dif, int xfer_size, struct dfu_file *file,
 
 	if (dfuse_leave) {
 		dfuse_special_command(dif, dfuse_address, SET_ADDRESS);
-		dfuse_dnload_chunk(dif, NULL, 0, 2); /* Zero-size */
+	    dfuse_download(dif, 0, NULL, 2);
+		//dfuse_dnload_chunk(dif, NULL, 0, 2); /* Zero-size */
 	}
+
 	return ret;
 }

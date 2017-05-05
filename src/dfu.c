@@ -159,7 +159,6 @@ int dfu_get_status( struct dfu_if *dif, struct dfu_status *status )
         status->bState  = buffer[4];
         status->iString = buffer[5];
     }
-
     return result;
 }
 

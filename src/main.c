@@ -648,7 +648,12 @@ status_again:
 		if (dfuse_device || dfuse_options || file.bcdDFU == 0x11a) {
 		        if (dfuse_do_dnload(dfu_root, transfer_size, &file,
 							dfuse_options) < 0)
+                {
+
+                    printf("Test final_reset");
+
 				exit(1);
+                }
 		} else {
 			if (dfuload_do_dnload(dfu_root, transfer_size, &file) < 0)
 				exit(1);
@@ -668,7 +673,7 @@ status_again:
 		if (dfu_detach(dfu_root->dev_handle, dfu_root->interface, 1000) < 0) {
 			/* Even if detach failed, just carry on to leave the
                            device in a known state */
-			warnx("can't detach");
+			//warnx("can't detach");
 		}
 		printf("Resetting USB to switch back to runtime mode\n");
 		ret = libusb_reset_device(dfu_root->dev_handle);
@@ -680,6 +685,5 @@ status_again:
 	libusb_close(dfu_root->dev_handle);
 	dfu_root->dev_handle = NULL;
 	libusb_exit(ctx);
-
 	return (0);
 }

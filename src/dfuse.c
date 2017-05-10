@@ -620,6 +620,7 @@ int dfuse_do_dnload(struct dfu_if *dif, int xfer_size, struct dfu_file *file,
 		    const char *dfuse_options)
 {
 	int ret;
+	struct dfu_status dst;
 
 	if (dfuse_options)
 		dfuse_parse_options(dfuse_options);
@@ -666,6 +667,7 @@ int dfuse_do_dnload(struct dfu_if *dif, int xfer_size, struct dfu_file *file,
 	if (dfuse_leave) {
 		dfuse_special_command(dif, dfuse_address, SET_ADDRESS);
 	    dfuse_download(dif, 0, NULL, 2);
+		dfu_get_status(dif, &dst);
 		//dfuse_dnload_chunk(dif, NULL, 0, 2); /* Zero-size */
 	}
 
